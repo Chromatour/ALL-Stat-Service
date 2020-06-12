@@ -33,8 +33,7 @@ const schema = {
       },
       challongeMatchId: {
         type: 'string',
-        required: true,
-        example: '3254462',
+        example: '3254sfds462',
       },
     },
   },
