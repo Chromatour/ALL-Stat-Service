@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
   tournamentName: {
@@ -28,9 +27,6 @@ const schema = new Schema({
   year: {
     type: Number,
     required: true,
-  },
-  challongeURI: {
-    type: String,
   },
 }, {
   timestamps: true,

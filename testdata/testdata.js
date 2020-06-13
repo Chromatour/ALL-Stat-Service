@@ -19,4 +19,5 @@ const provider1 = {
 
 module.exports = {
   provider1,
+  tournament1,
 };

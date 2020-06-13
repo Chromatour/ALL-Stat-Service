@@ -28,7 +28,7 @@ const schema = new Schema({
   },
   games: [{
     type: ObjectId,
-    ref: 'games'
+    ref: 'games',
   }],
 }, {
   timestamps: true,

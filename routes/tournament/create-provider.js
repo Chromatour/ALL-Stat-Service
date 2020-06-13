@@ -34,8 +34,8 @@ const handler = async (req, reply) => {
       'X-Riot-Token': RIOTAPIKEY,
     },
     body: {
-      'region': REGION,
-      'url': callbackUrl,
+      region: REGION,
+      url: callbackUrl,
     },
     resolveWithFullResponse: true,
     simple: false,
@@ -51,20 +51,20 @@ const handler = async (req, reply) => {
       message: body.status.message,
     });
     return;
-  };
+  }
 
   try {
-    const provider = await Provider.create({
+    await Provider.create({
       providerId: body,
       callbackUrl,
-    })
+    });
   } catch (error) {
     log.error('Error creating a provider! ', error);
     reply.status(500).send({
       status: 'ERROR',
       error: 'Internal Server Error',
     });
-  };
+  }
 
   reply.status(201).send({
     status: 'CREATED',

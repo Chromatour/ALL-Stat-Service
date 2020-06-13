@@ -22,4 +22,4 @@ module.exports = {
   },
   // Valid values: BR, EUNE, EUW, JP, LAN, LAS, NA, OCE, PBE, RU, TR
   lolRegion: 'EUW',
-}
+};

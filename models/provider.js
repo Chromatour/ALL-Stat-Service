@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
   providerId: {
@@ -15,7 +14,7 @@ const schema = new Schema({
   callbackUrl: {
     type: String,
     required: true,
-  }
+  },
 }, {
   timestamps: true,
 });

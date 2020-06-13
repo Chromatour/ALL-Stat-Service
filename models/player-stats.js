@@ -1,7 +1,6 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
   username: {
@@ -27,11 +26,14 @@ const schema = new Schema({
   totalCS: {
     type: Number,
   },
+  totalGameTime: {
+    type: Number,
+  },
   winner: {
     type: String,
     enum: ['Blue', 'Red'],
   },
-  
+
 }, {
   timestamps: true,
 });

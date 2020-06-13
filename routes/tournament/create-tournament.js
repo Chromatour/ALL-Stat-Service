@@ -3,9 +3,6 @@ const request = require('request-promise-native');
 const { log, statusCodesToDefinition } = require('../../lib');
 const { Provider, Tournament } = require('../../models');
 
-const HOST = config.get('host');
-const ROUTEPREFIX = config.get('routePrefix');
-const CALLBACKROUTERPREFIX = config.get('callbackRouterPrefix');
 const RIOTAPIKEY = config.get('riot.webApiKey');
 const REGION = config.get('lolRegion');
 
@@ -42,7 +39,7 @@ const handler = async (req, reply) => {
   // Get providerID
   let provider;
   try {
-    provider = await Provider.findOne().sort({created_at: -1});
+    provider = await Provider.findOne().sort({ created_at: -1 });
   } catch (error) {
     log.error('Error finding a provider! ', error);
     reply.status(500).send({
@@ -66,8 +63,8 @@ const handler = async (req, reply) => {
       'X-Riot-Token': RIOTAPIKEY,
     },
     body: {
-      'name': REGION,
-      'providerId': provider.providerId
+      name: REGION,
+      providerId: provider.providerId,
     },
     resolveWithFullResponse: true,
     simple: false,
@@ -77,28 +74,27 @@ const handler = async (req, reply) => {
   const { body, statusCode } = await request(options);
 
   if (statusCode !== 200) {
-    console.log(body)
     reply.status(statusCode).send({
       status: 'ERROR',
       error: statusCodesToDefinition.get(statusCode),
       message: body.status.message,
     });
     return;
-  };
+  }
 
   try {
-    const tournament = await Tournament.create({
+    await Tournament.create({
       tournamentName: req.body.tournamentName,
       tournamentId: body,
       year: req.body.year,
-    })
+    });
   } catch (error) {
     log.error('Error creating a tournament! ', error);
     reply.status(500).send({
       status: 'ERROR',
       error: 'Internal Server Error',
     });
-  };
+  }
 
   reply.send({
     status: 'OK',

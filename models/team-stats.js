@@ -1,11 +1,20 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
 
 const schema = new Schema({
+  teamName: {
+    type: String,
+    required: true,
+    unique: true,
+  },
+  teamAbbreviation: {
+    type: String,
+    required: true,
+    unique: true,
+  },
   players: [{
-    type: ObjectId,
+    type: String,
     required: true,
     unique: true,
   }],
@@ -27,11 +36,7 @@ const schema = new Schema({
   totalCS: {
     type: Number,
   },
-  winner: {
-    type: String,
-    enum: ['Blue', 'Red'],
-  },
-  
+
 }, {
   timestamps: true,
 });
