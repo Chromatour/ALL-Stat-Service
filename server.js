@@ -88,8 +88,17 @@ const callbackRouterRoute = async (server) => {
   } catch (error) {
     routes.callbackRouter(server);
   }
-}
+};
 
+const matchRoute = async (server) => {
+  Object.keys(routes.match).forEach((key) => {
+    try {
+      server.route(routes.match[key]);
+    } catch (error) {
+      routes.match[key](server);
+    }
+  });
+};
 
 /**
  * Init server
@@ -110,8 +119,9 @@ const initServer = async () => {
   server
     .register(fastifySwagger, initSwagger())
     .register(utilityRoute, { prefix: `${ROUTE_PREFIX}/utility` })
-    .register(callbackRouterRoute, { prefix: `${ROUTE_PREFIX}`})
+    .register(callbackRouterRoute, { prefix: `${ROUTE_PREFIX}` })
     .register(tournamentRoute, { prefix: `${ROUTE_PREFIX}/tournament` })
+    .register(matchRoute, { prefix: `${ROUTE_PREFIX}/match` });
 
   return {
     start: async () => {

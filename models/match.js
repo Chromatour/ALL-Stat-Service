@@ -30,6 +30,10 @@ const schema = new Schema({
     type: ObjectId,
     ref: 'games',
   }],
+  tournamentCodes: [{
+    type: String,
+    required: true,
+  }],
 }, {
   timestamps: true,
 });

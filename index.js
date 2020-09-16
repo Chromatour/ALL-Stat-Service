@@ -1,6 +1,6 @@
 const mongodb = require('./database/mongo');
 const { initServer } = require('./server');
-const { log, insertTestData } = require('./lib');
+const { log } = require('./lib');
 
 module.exports = (async () => {
   // Initialize database connection
@@ -11,7 +11,6 @@ module.exports = (async () => {
     process.exit(1);
   }
 
-
   // Start server
   try {
     const server = await initServer();
@@ -21,12 +20,11 @@ module.exports = (async () => {
     process.exit(1);
   }
 
-  try {
+  /*   try {
     await insertTestData();
   } catch (error) {
     log.error('Error inserting test data. Might happen because test data already exists.');
-  }
-  
+  } */
 
   log.info('Service started successfully!');
-}) ();
+})();

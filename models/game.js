@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 const { Schema } = mongoose;
-const { ObjectId } = Schema.Types;
+/**
+ * This schema is for each game.
+ * This does not determine the winning team, but only winning side and stores the stats for a game.
+ */
 
 const schema = new Schema({
-  gameId: {
-    type: Number,
-  },
   gameDuration: {
     type: Number,
   },
@@ -15,11 +15,11 @@ const schema = new Schema({
     enum: ['Blue', 'Red'],
   },
   team1Players: [{
-    type: ObjectId,
+    type: String,
     required: true,
   }],
   team2Players: [{
-    type: ObjectId,
+    type: String,
     requided: true,
   }],
   team1Gold: {
@@ -52,11 +52,17 @@ const schema = new Schema({
   team2Barons: {
     type: Number,
   },
+  team1Inhibitors: {
+    type: Number,
+  },
+  team2Inhibitors: {
+    type: Number,
+  },
   team1Bans: [{
-    champion: {
+    championId: {
       type: String,
     },
-    banTurn: {
+    pickTurn: {
       type: Number,
     },
   }],

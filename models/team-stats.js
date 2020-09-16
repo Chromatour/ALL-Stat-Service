@@ -41,4 +41,4 @@ const schema = new Schema({
   timestamps: true,
 });
 
-module.exports = mongoose.model('playerStats', schema);
+module.exports = mongoose.model('teamStats', schema);

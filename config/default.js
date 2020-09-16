@@ -1,7 +1,7 @@
 module.exports = {
-  port: 3000,
+  port: 3003,
   swagger: {
-    host: 'localhost:3000',
+    host: 'localhost:3003',
     schemes: ['http', 'https'],
   },
   database: {

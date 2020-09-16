@@ -12,16 +12,27 @@ const schema = {
   body: {
     type: 'object',
     properties: {
+      tournamentName: {
+        type: 'string',
+      },
       allowedSummonerIds: {
         type: 'array',
         summonerNames: {
           type: 'string',
         },
-        example: null,
+        example: [null],
       },
-      metadata: {
+      team1: {
         type: 'string',
-        example: '{"match": "13", "team1": "IGL", "team2": "MM"}',
+        example: 'IGL',
+      },
+      team2: {
+        type: 'string',
+        example: 'MM',
+      },
+      matchNumber: {
+        type: 'number',
+        example: '13',
       },
       bestOf: {
         type: 'number',
@@ -49,7 +60,9 @@ const handler = async (req, reply) => {
   // Get tournamentId
   let tournament;
   try {
-    tournament = await Tournament.findOne().sort({ created_at: -1 });
+    tournament = await Tournament.findOne({
+      tournamentName: req.body.tournamentName,
+    });
   } catch (error) {
     log.error('Error finding a tournament! ', error);
     reply.status(500).send({
@@ -66,8 +79,10 @@ const handler = async (req, reply) => {
     });
   }
 
+  const metadata = `{"challongeMatchId": "${req.body.challongeMatchId}", "team1": "${req.body.team1}", "team2": "${req.body.team2}"}`;
+
   const options = {
-    uri: 'https://americas.api.riotgames.com/lol/tournament-stub/v4/',
+    uri: 'https://americas.api.riotgames.com/lol/tournament-stub/v4/codes',
     qs: {
       count: req.body.bestOf,
       tournamentId: tournament.tournamentId,
@@ -81,7 +96,7 @@ const handler = async (req, reply) => {
       pickType: 'TOURNAMENT_DRAFT',
       spectatorType: 'ALL',
       teamSize: 5,
-      metadata: req.body.metadata,
+      metadata,
     },
     resolveWithFullResponse: true,
     simple: false,
@@ -102,11 +117,13 @@ const handler = async (req, reply) => {
   try {
     await Match.create({
       challongeMatchId: req.body.challongeMatchId,
-      tournamentId: body,
-      year: req.body.year,
+      team1: req.body.team1,
+      team2: req.body.team2,
+      numberOfGames: req.body.bestOf,
+      tournamentCodes: body,
     });
   } catch (error) {
-    log.error('Error creating a tournament! ', error);
+    log.error('Error creating a match! ', error);
     reply.status(500).send({
       status: 'ERROR',
       error: 'Internal Server Error',

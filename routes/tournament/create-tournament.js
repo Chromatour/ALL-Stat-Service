@@ -46,6 +46,7 @@ const handler = async (req, reply) => {
       status: 'ERROR',
       error: 'Internal Server Error',
     });
+    return;
   }
 
   if (!provider) {
@@ -54,6 +55,7 @@ const handler = async (req, reply) => {
       error: 'Not Found',
       message: 'ProviderID not found! Please, register a provider first!',
     });
+    return;
   }
 
   const options = {
@@ -94,6 +96,7 @@ const handler = async (req, reply) => {
       status: 'ERROR',
       error: 'Internal Server Error',
     });
+    return;
   }
 
   reply.send({
