@@ -10,18 +10,27 @@ const schema = {
     properties: {
       startTime: {
         type: 'number',
-        example: 1826,
       },
       winningTeam: {
         type: 'array',
-        summonerName: {
-          type: 'string',
+        items: {
+          type: 'object',
+          properties: {
+            summonerName: {
+              type: 'string',
+            },
+          },
         },
       },
       losingTeam: {
         type: 'array',
-        summonerName: {
-          type: 'string',
+        items: {
+          type: 'object',
+          properties: {
+            summonerName: {
+              type: 'string',
+            },
+          },
         },
       },
       shortCode: {
@@ -123,6 +132,9 @@ const handler = async (req, reply) => {
       message: 'Match not found.',
     });
   }
+
+  // Call game parser
+
   reply.send({
     status: 'OK',
   });

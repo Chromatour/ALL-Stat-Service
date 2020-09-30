@@ -79,7 +79,7 @@ const handler = async (req, reply) => {
     });
   }
 
-  const metadata = `{"challongeMatchId": "${req.body.challongeMatchId}", "team1": "${req.body.team1}", "team2": "${req.body.team2}"}`;
+  const metadata = `{\"challongeMatchId\": \"${req.body.challongeMatchId}\", \"team1\": \"${req.body.team1}\", \"team2\": \"${req.body.team2}\"}`;
 
   const options = {
     uri: 'https://americas.api.riotgames.com/lol/tournament-stub/v4/codes',

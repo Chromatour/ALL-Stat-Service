@@ -12,6 +12,10 @@ const schema = new Schema({
     type: String,
     required: true,
   },
+  challongeTournamentId: {
+    type: String,
+    required: true,
+  },
   numberOfTeams: {
     type: Number,
   },

@@ -1,5 +1,5 @@
 module.exports = {
-  host: 'E.g http://localhost:3000',
+  host: 'E.g http://localhost:3003',
   callbackRouterPrefix: '/router',
   database: {
     mongo: {

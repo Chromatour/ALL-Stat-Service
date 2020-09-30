@@ -22,9 +22,11 @@ const schema = new Schema({
   },
   team1Wins: {
     type: Number,
+    default: 0,
   },
   team2Wins: {
     type: Number,
+    default: 0,
   },
   games: [{
     type: ObjectId,
